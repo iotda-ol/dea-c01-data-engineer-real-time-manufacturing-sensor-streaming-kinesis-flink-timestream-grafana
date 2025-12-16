@@ -1,0 +1,2 @@
+# dea-c01-data-engineer-real-time-manufacturing-sensor-streaming-kinesis-flink-timestream-grafana
+This repository implements a low-latency real-time analytics platform for manufacturing sensor data using AWS. Data is ingested with Kinesis Data Streams, processed using Amazon Managed Service for Apache Flink, stored in Amazon Timestream, and visualized in Grafana. Infrastructure is provisioned with Terraform and Python.
