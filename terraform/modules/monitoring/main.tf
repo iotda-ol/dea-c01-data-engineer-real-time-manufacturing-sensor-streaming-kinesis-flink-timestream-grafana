@@ -133,8 +133,8 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "metric"
         properties = {
           metrics = [
-            ["AWS/Kinesis", "IncomingRecords", { stat = "Sum", label = "Incoming Records" }],
-            [".", "IncomingBytes", { stat = "Sum", label = "Incoming Bytes" }]
+            ["AWS/Kinesis", "IncomingRecords", { stat = "Sum", label = "Incoming Records", dimensions = { StreamName = var.kinesis_stream_name } }],
+            [".", "IncomingBytes", { stat = "Sum", label = "Incoming Bytes", dimensions = { StreamName = var.kinesis_stream_name } }]
           ]
           period = 300
           stat   = "Sum"
@@ -151,9 +151,9 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "metric"
         properties = {
           metrics = [
-            ["AWS/KinesisAnalytics", "uptime", { stat = "Average", label = "Uptime" }],
-            [".", "cpuUtilization", { stat = "Average", label = "CPU %" }],
-            [".", "heapMemoryUtilization", { stat = "Average", label = "Heap Memory %" }]
+            ["AWS/KinesisAnalytics", "uptime", { stat = "Average", label = "Uptime", dimensions = { Application = var.flink_app_name } }],
+            [".", "cpuUtilization", { stat = "Average", label = "CPU %", dimensions = { Application = var.flink_app_name } }],
+            [".", "heapMemoryUtilization", { stat = "Average", label = "Heap Memory %", dimensions = { Application = var.flink_app_name } }]
           ]
           period = 300
           stat   = "Average"
@@ -170,7 +170,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "metric"
         properties = {
           metrics = [
-            ["AWS/Kinesis", "GetRecords.IteratorAgeMilliseconds", { stat = "Maximum", label = "Iterator Age" }]
+            ["AWS/Kinesis", "GetRecords.IteratorAgeMilliseconds", { stat = "Maximum", label = "Iterator Age", dimensions = { StreamName = var.kinesis_stream_name } }]
           ]
           period = 300
           stat   = "Maximum"
@@ -187,8 +187,8 @@ resource "aws_cloudwatch_dashboard" "main" {
         type = "metric"
         properties = {
           metrics = [
-            ["AWS/KinesisAnalytics", "numFailedCheckpoints", { stat = "Sum", label = "Failed Checkpoints" }],
-            [".", "lastCheckpointDuration", { stat = "Average", label = "Checkpoint Duration (ms)" }]
+            ["AWS/KinesisAnalytics", "numFailedCheckpoints", { stat = "Sum", label = "Failed Checkpoints", dimensions = { Application = var.flink_app_name } }],
+            [".", "lastCheckpointDuration", { stat = "Average", label = "Checkpoint Duration (ms)", dimensions = { Application = var.flink_app_name } }]
           ]
           period = 300
           stat   = "Sum"
