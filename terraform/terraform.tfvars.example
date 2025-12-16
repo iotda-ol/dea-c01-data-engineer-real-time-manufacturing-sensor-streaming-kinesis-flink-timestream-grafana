@@ -1,0 +1,37 @@
+# Example Terraform Variables Configuration
+# Copy this file to terraform.tfvars and customize for your environment
+
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "dev"
+
+# Project naming
+project_name = "manufacturing-analytics"
+
+# Kinesis Data Stream Configuration
+kinesis_shard_count     = 2   # Number of shards (1 MB/s write, 2 MB/s read per shard)
+kinesis_retention_hours = 24  # Data retention in hours (24-8760)
+
+# Timestream Configuration
+timestream_memory_retention_hours  = 24  # Hot storage duration (1-8766 hours)
+timestream_magnetic_retention_days = 90  # Cold storage duration (1-73000 days)
+
+# Monitoring Configuration
+alarm_email = "your-email@example.com"  # Email for CloudWatch alarms (optional)
+
+# Example configurations for different environments:
+
+# Development
+# kinesis_shard_count = 1
+# timestream_memory_retention_hours = 12
+# timestream_magnetic_retention_days = 30
+
+# Staging
+# kinesis_shard_count = 2
+# timestream_memory_retention_hours = 24
+# timestream_magnetic_retention_days = 90
+
+# Production
+# kinesis_shard_count = 4
+# timestream_memory_retention_hours = 48
+# timestream_magnetic_retention_days = 365

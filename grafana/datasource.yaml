@@ -1,0 +1,18 @@
+# Grafana Datasource Configuration for Amazon Timestream
+# This file can be used to configure Grafana's datasource provisioning
+
+apiVersion: 1
+
+datasources:
+  - name: Timestream
+    type: grafana-timestream-datasource
+    access: proxy
+    jsonData:
+      authType: default  # Use default AWS credentials
+      defaultRegion: us-east-1
+      defaultDatabase: manufacturing-analytics-db-dev
+      defaultTable: manufacturing-analytics-metrics-dev
+      # For IAM role-based access (recommended):
+      # assumeRoleArn: arn:aws:iam::ACCOUNT_ID:role/grafana-timestream-role
+    isDefault: true
+    editable: true
