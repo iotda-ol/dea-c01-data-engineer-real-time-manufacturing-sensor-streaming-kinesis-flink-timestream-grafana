@@ -67,7 +67,7 @@ resource "aws_iam_role_policy" "flink_execution" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
-        Resource = "arn:aws:logs:*:*:log-group:/aws/kinesis-analytics/*"
+        Resource = "arn:aws:logs:*:*:log-group:/aws/kinesis-analytics/${var.project_name}-*"
       },
       {
         Sid    = "CloudWatchMetrics"
@@ -75,6 +75,8 @@ resource "aws_iam_role_policy" "flink_execution" {
         Action = [
           "cloudwatch:PutMetricData"
         ]
+        # Note: CloudWatch PutMetricData doesn't support resource-level permissions
+        # Using condition to restrict to specific namespace
         Resource = "*"
         Condition = {
           StringEquals = {

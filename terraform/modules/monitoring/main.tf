@@ -127,6 +127,9 @@ resource "aws_cloudwatch_metric_alarm" "flink_cpu_utilization" {
 resource "aws_cloudwatch_dashboard" "main" {
   dashboard_name = "${var.project_name}-${var.environment}"
   
+  # Note: CloudWatch dashboard metrics use array format
+  # ["Namespace", "MetricName", "DimensionName", "DimensionValue", {...}]
+  # Shorthand "." repeats the previous value (namespace or dimension)
   dashboard_body = jsonencode({
     widgets = [
       {

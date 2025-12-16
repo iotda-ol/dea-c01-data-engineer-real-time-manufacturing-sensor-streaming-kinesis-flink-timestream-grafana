@@ -9,7 +9,7 @@ import time
 import random
 import argparse
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List
 import boto3
 from botocore.exceptions import ClientError
@@ -58,7 +58,7 @@ class SensorDataGenerator:
             "sensor_id": sensor_id,
             "machine_id": machine_id,
             "production_line": production_line,
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             "measurements": {
                 "temperature_celsius": round(temperature, 2),
                 "pressure_psi": round(pressure, 2),

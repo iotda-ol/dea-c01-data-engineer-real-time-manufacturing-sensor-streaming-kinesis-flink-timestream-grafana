@@ -6,7 +6,7 @@ Processes streaming data from Kinesis and writes to Timestream
 
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List
 import boto3
 from botocore.exceptions import ClientError
@@ -46,7 +46,7 @@ class SensorDataProcessor:
         if not sensor_data:
             return []
         
-        current_time = str(int(datetime.utcnow().timestamp() * 1000))
+        current_time = str(int(datetime.now(timezone.utc).timestamp() * 1000))
         
         # Common dimensions
         dimensions = [
